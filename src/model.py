@@ -17,7 +17,7 @@ def buildModel(loadParamFromFile = False):
     model.summary()
     model.compile(optimizer='rmsprop',loss='mse')
     if loadParamFromFile:
-        model.load_weights(MODELFILE)
+        model.load_weights(MODELFILE+"_"+str(DEPTH))
     return model
 
 
@@ -99,7 +99,7 @@ def train(x_data, y_data, model):
               batch_size=2,
               epochs=5,
               verbose=1)
-    model.save_weights(MODELFILE)
+    model.save_weights(MODELFILE+"_"+str(DEPTH))
 
 
 
@@ -114,7 +114,6 @@ if __name__ == "__main__":
     print ("finish generate rhymes from lyric file")
     if trainModel:
         xData, yData = buildDataSet(bars, rhymes)
-        import pdb; pdb.set_trace()
         print ("finish building the dataset")
         train(xData, yData, model)
         print ("finish trainning the model")
@@ -123,6 +122,5 @@ if __name__ == "__main__":
     rapVector = composeRap(generatedBars, rhymes, model)
     print ("finish generate lyric vector using model")
     lyric = convertVectorToSong(rapVector, generatedBars, rhymes)
-    print lyric
     for line in lyric:
-        print lyric
+        print line

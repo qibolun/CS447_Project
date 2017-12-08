@@ -49,7 +49,7 @@ def syllables(bar):
 	helper = lambda w:len(''.join(" x"[c in"aeiouy"]for c in w.rstrip('e')).split())
 	for word in bar:
 		count += helper(word)
-	return count/MAXSYLLABLES
+	return float(count)/MAXSYLLABLES
 
 
 # Get index of rhyme as a float
@@ -103,10 +103,10 @@ def generateLyrics(textFile, barLimit=500, lyricLimitIndex=2):
 		bar = markovModel.make_sentence()
 		if bar and syllables(bar) < 1:
 			last_word = bar.strip('!.?,').split(" ")[-1]
-		if bar not in bars and lastWords.count(last_word) < 3:
-			bars.append(bar)
-			lastWords.append(last_word)
-			count += len(bar.split(' '))
+			if bar not in bars and lastWords.count(last_word) < 3:
+				bars.append(bar)
+				lastWords.append(last_word)
+				count += len(bar.split(' '))
 	return bars
 
 def markov(text_file):
