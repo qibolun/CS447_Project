@@ -1,4 +1,4 @@
-DEPTH = 6
+DEPTH = 8
 MAXSYLLABLES = 16
 OUTPUT = "generatedLyric.txt"
 RHYMESFILE = "rhymes.txt"
